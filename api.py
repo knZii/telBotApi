@@ -12,12 +12,11 @@ class Telegram:
     def notHandle(self, func):
         self.notHandle = func
 
-    def sendMessage(self, chat_id, msg, keyboard=None, resize_keyboard=False, one_time_keyboard=False) -> bool:
+    def sendMessage(self, chat_id, msg, keyboard=None) -> bool:
         if keyboard is None:
             r = requests.get("https://api.telegram.org/bot"+ self.token +"/sendMessage", params= {"chat_id": chat_id, "text": msg})
         else:
-            k = {"keyboard": keyboard, "resize_keyboard": resize_keyboard, "one_time_keyboard": one_time_keyboard}
-            k = json.dumps(k)
+            k = json.dumps(keyboard)
             r = requests.get("https://api.telegram.org/bot"+ self.token +"/sendMessage", params= {"chat_id": chat_id, "text": msg, "reply_markup": k})
         r = r.json()
         return r["ok"]
