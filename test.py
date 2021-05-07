@@ -5,7 +5,7 @@ TOKEN = "1781512807:AAG2rV9gkqwC_6A6eQVz6p9ufdNWoKp6UN8"
 bot = Telegram(TOKEN)
 
 def start(msg):
-    return "hello!", [["wow"]]
+    return "hello!", None
 
 def wow(msg):
     print("OMG!")

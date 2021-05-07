@@ -10,7 +10,7 @@ class Telegram:
         self.handles.append([func, msg])
 
     def notHandle(self, func):
-        self.notHandle = func
+        self.notHandleFunc = func
 
     def sendMessage(self, chat_id, msg, keyboard=None) -> bool:
         if keyboard is None:
@@ -36,9 +36,9 @@ class Telegram:
                     if msg.message.text == i[1]:
                         msgForSend, kb = i[0](msg)
                         if msgForSend is not None:
-                            self.sendMessage(msg.message.chat.id, msgForSend, kb, resize_keyboard=True)
+                            self.sendMessage(msg.message.chat.id, msgForSend, kb)
                         is_handled = True
                 if not is_handled:
-                    msgForSend, kb = self.notHandle(msg)
+                    msgForSend, kb = self.notHandleFunc(msg)
                     if msgForSend is not None:
-                            self.sendMessage(msg.message.chat.id, msgForSend, kb, resize_keyboard=True)
+                            self.sendMessage(msg.message.chat.id, msgForSend, kb)
