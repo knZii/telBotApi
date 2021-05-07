@@ -35,10 +35,18 @@ class Telegram:
                 for i in self.handles:
                     if msg.message.text == i[1]:
                         msgForSend, kb = i[0](msg)
+                        if kb is not None:
+                            k = {"keyboard": kb, "resize_keyboard": True}
+                        else:
+                            k = None
                         if msgForSend is not None:
-                            self.sendMessage(msg.message.chat.id, msgForSend, kb)
+                            self.sendMessage(msg.message.chat.id, msgForSend, k)
                         is_handled = True
                 if not is_handled:
                     msgForSend, kb = self.notHandleFunc(msg)
                     if msgForSend is not None:
-                            self.sendMessage(msg.message.chat.id, msgForSend, kb)
+                        if kb is not None:
+                            k = {"keyboard": kb, "resize_keyboard": True}
+                        else:
+                            k = None
+                        self.sendMessage(msg.message.chat.id, msgForSend, k)
