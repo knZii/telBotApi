@@ -35,14 +35,22 @@ class Telegram:
             r = r.result
             if r != []:
                 lastUpdateID = r[-1].update_id
-
             for msg in r:
                 is_handled = False
                 for i in self.handles:
                     if msg.message.text == i[1]:
+
                         msgForSend, kb = i[0](msg)
                         if kb is not None:
-                            k = {"keyboard": kb, "resize_keyboard": True}
+                            keyb = []
+                            for i in kb:
+                                row = []
+                                for j in i:
+                                    self.handle(list(j.values())[
+                                                0], list(j.keys())[0])
+                                    row.append(list(j.keys())[0])
+                                keyb.append(row)
+                            k = {"keyboard": keyb, "resize_keyboard": True}
                         else:
                             k = None
                         if msgForSend is not None:
