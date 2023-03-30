@@ -10,7 +10,6 @@ def start(msg):
 
 
 def wow(msg):
-    print("OMG!")
     return "Hello!", None
 
 

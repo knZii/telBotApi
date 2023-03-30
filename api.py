@@ -36,6 +36,13 @@ class Telegram:
             if r != []:
                 lastUpdateID = r[-1].update_id
             for msg in r:
+                if not hasattr(msg, "message"):
+                    continue
+                # can be message/photo/...
+
+                if not hasattr(msg.message, "text"):
+                    continue
+                # now its message
                 is_handled = False
                 for i in self.handles:
                     if msg.message.text == i[1]:
